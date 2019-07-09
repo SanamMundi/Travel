@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TravelWithMe</string>
+    <string name="splashImg">Splash Activity</string>
 </resources>
