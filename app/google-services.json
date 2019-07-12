@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "458208342558",
+    "firebase_url": "https://travelwithme-feb6a.firebaseio.com",
+    "project_id": "travelwithme-feb6a",
+    "storage_bucket": "travelwithme-feb6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458208342558:android:f7b7a1c827436d9c",
+        "android_client_info": {
+          "package_name": "com.example.travelwithme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458208342558-t3u8okm17g3vme4oo4ied97l979t9jig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlU-Qoeq5liVSNALQLQS25XLl-xqSlGbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458208342558-t3u8okm17g3vme4oo4ied97l979t9jig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
