@@ -50,6 +50,7 @@ public class SignInFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("458208342558-t3u8okm17g3vme4oo4ied97l979t9jig.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
@@ -102,6 +103,7 @@ public class SignInFragment extends Fragment {
                     case R.id.sign_in_button:
                         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                         startActivityForResult(signInIntent, RC_SIGN_IN);
+
                         break;
                 }
             }
@@ -122,6 +124,7 @@ public class SignInFragment extends Fragment {
     {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            startActivity(new Intent(getContext(),trying.class));
         }
         catch (ApiException e) {
             Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
