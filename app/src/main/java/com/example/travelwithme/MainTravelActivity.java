@@ -3,6 +3,7 @@ package com.example.travelwithme;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainTravelActivity extends AppCompatActivity {
     private ActionBar toolbar;
-    Fragment fragment;
+
 
 
     @Override
@@ -23,8 +24,8 @@ public class MainTravelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_travel);
 
 
-        fragment =new HomeFragment();
-        loadFragment(fragment);
+
+        loadFragment(new HomeFragment());
 
 
         toolbar = getSupportActionBar();
@@ -34,9 +35,10 @@ public class MainTravelActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                Fragment fragment;
                 switch(item.getItemId())
                 {
+
                     case(R.id.navigation_main):
                         toolbar.setTitle("Home");
                         fragment = new HomeFragment();
@@ -56,6 +58,9 @@ public class MainTravelActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigatorBehavior());
 
 
     }
