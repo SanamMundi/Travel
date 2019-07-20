@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/eTEmail"
+            android:id="@+id/eTSignInEmail"
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvSignUP" />
 
         <EditText
-            android:id="@+id/eTPassword"
+            android:id="@+id/eTSignInPassword"
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -55,7 +55,7 @@
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eTEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/eTSignInEmail" />
 
         <Button
             android:id="@+id/buttonSignUp"
@@ -70,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eTPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/eTSignInPassword" />
 
         <TextView
             android:id="@+id/tvSignUP"

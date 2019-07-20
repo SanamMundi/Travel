@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "458208342558-rp28hqs0f6ni7q4erhk2q3gou196ii87.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelwithme",
+            "certificate_hash": "5887c7ac5ef65ad9bfa9b3ffbd8f850526147342"
+          }
+        },
+        {
           "client_id": "458208342558-t3u8okm17g3vme4oo4ied97l979t9jig.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -28,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "458208342558-t3u8okm17g3vme4oo4ied97l979t9jig.apps.googleusercontent.com",
+              "client_id": "458208342558-8tophoulq0p0h9khrnv3d10f69s508hm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

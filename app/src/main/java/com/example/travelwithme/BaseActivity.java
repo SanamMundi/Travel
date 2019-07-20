@@ -23,9 +23,9 @@ public class BaseActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-    /*    if(currentUser!=null)
+      if(currentUser!=null)
         {
-            Intent intent = new Intent( BaseActivity.this,trying.class);
+            Intent intent = new Intent( BaseActivity.this, MainTravelActivity.class);
             Log.d("----","user logged in");
             startActivity(intent);
         }
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
 
             loginFragment();
 
-        }*/
+        }
         loginFragment();
 
     }

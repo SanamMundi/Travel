@@ -1,8 +1,6 @@
 package com.example.travelwithme;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -36,8 +34,8 @@ public class SignUpFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_sign_up, container, false);
         mAuth = FirebaseAuth.getInstance();
         Button signUp = v.findViewById(R.id.buttonSignUp);
-        eTEmail = v.findViewById(R.id.eTEmail);
-        eTPassword = v.findViewById(R.id.eTPassword);
+        eTEmail = v.findViewById(R.id.eTSignInEmail);
+        eTPassword = v.findViewById(R.id.eTSignInPassword);
 
 
 
@@ -53,7 +51,7 @@ public class SignUpFragment extends Fragment {
                         if(task.isSuccessful())
                         {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(getContext(),trying.class));
+                            startActivity(new Intent(getContext(), MainTravelActivity.class));
                         }
                         else
                         {
