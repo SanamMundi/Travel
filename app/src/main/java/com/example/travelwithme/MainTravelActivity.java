@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -46,8 +47,14 @@ public class MainTravelActivity extends AppCompatActivity {
                         return true;
                     case(R.id.navigation_maps):
                         toolbar.setTitle("Maps");
+<<<<<<< HEAD
                         fragment = new MapsNearMeFragment();
                         loadFragment(fragment);
+=======
+                        fragment = new MapFragment();
+                        loadFragment(fragment);
+                        Toast.makeText(MainTravelActivity.this, "maps fragment launched", Toast.LENGTH_SHORT).show();
+>>>>>>> master
                         return true;
                     case(R.id.navigation_tours):
                         toolbar.setTitle("Tours");
