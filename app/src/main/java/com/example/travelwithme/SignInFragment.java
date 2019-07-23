@@ -47,7 +47,6 @@ public class SignInFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("682814813118-bev0ra7qpc45d5cdjcqa348ee6ot17dg.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);

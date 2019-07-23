@@ -46,6 +46,8 @@ public class MainTravelActivity extends AppCompatActivity {
                         return true;
                     case(R.id.navigation_maps):
                         toolbar.setTitle("Maps");
+                        fragment = new MapsNearMeFragment();
+                        loadFragment(fragment);
                         return true;
                     case(R.id.navigation_tours):
                         toolbar.setTitle("Tours");

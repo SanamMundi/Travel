@@ -33,9 +33,9 @@ public class SignUpFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_sign_up, container, false);
         mAuth = FirebaseAuth.getInstance();
-        Button signUp = v.findViewById(R.id.buttonSignUp);
-        eTEmail = v.findViewById(R.id.eTSignInEmail);
-        eTPassword = v.findViewById(R.id.eTSignInPassword);
+        Button signUp = v.findViewById(R.id.buttonSignup);
+        eTEmail = v.findViewById(R.id.eTSignUpEmail);
+        eTPassword = v.findViewById(R.id.eTSignUpPassword);
 
 
 
