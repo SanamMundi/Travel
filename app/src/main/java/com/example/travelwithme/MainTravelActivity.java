@@ -6,9 +6,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -16,13 +18,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainTravelActivity extends AppCompatActivity {
     private ActionBar toolbar;
-
+    MapsNearMeFragment map = new MapsNearMeFragment();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_travel);
+        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar1);
 
 
 
@@ -47,14 +51,15 @@ public class MainTravelActivity extends AppCompatActivity {
                         return true;
                     case(R.id.navigation_maps):
                         toolbar.setTitle("Maps");
-<<<<<<< HEAD
-                        fragment = new MapsNearMeFragment();
-                        loadFragment(fragment);
-=======
-                        fragment = new MapFragment();
-                        loadFragment(fragment);
-                        Toast.makeText(MainTravelActivity.this, "maps fragment launched", Toast.LENGTH_SHORT).show();
->>>>>>> master
+
+                        //fragment = new MapsNearMeFragment();
+                        loadFragment(map);
+
+                        //fragment = new MapFragment();
+
+                        //loadFragment(fragment);
+                        //Toast.makeText(MainTravelActivity.this, "maps fragment launched", Toast.LENGTH_SHORT).show();
+
                         return true;
                     case(R.id.navigation_tours):
                         toolbar.setTitle("Tours");
@@ -89,5 +94,16 @@ public class MainTravelActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == MapsNearMeFragment.MY_PERMISSIONS_REQUEST_LOCATION){
+            map.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
