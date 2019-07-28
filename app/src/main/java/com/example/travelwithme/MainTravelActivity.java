@@ -65,19 +65,7 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
 
 
 
-                        String lat="49.24";
-                        String lng="-123.1183";
-                        String category="cat=hotel";
-                        //String category="cat=car_rental";
-                        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
-                        String language="Accept-Language=en-US,en";
-                        String app_id="DemoAppId01082013GAL";
-                        String app_code="AJKnXv84fjrb0KIHawS0Tg";
-                        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,lat,lng,category,language,app_id,app_code);
 
-
-                        GetNearby getNearby = new GetNearby(MainTravelActivity.this);
-                        getNearby.execute(url);
 
 
 
@@ -131,6 +119,24 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
         else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    public void other(double lat, double lng){
+
+
+        //String lat="49.24";
+        //String lng="-123.1183";
+        String category="cat=hotel";
+        //String category="cat=car_rental";
+        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
+        String language="Accept-Language=en-US,en";
+        String app_id="DemoAppId01082013GAL";
+        String app_code="AJKnXv84fjrb0KIHawS0Tg";
+        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,lat,lng,category,language,app_id,app_code);
+
+
+        GetNearby getNearby = new GetNearby(MainTravelActivity.this);
+        getNearby.execute(url);
     }
 
 

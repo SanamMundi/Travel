@@ -143,12 +143,17 @@ public class MapsNearMeFragment extends SupportMapFragment
 
 
 
+
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+
+        MainTravelActivity mt = new MainTravelActivity();
+        mt.other(location.getLatitude(), location.getLongitude());
 
 
         /*
@@ -160,10 +165,13 @@ public class MapsNearMeFragment extends SupportMapFragment
         String app_code="AJKnXv84fjrb0KIHawS0Tg";
         final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
 
-        GetNearby gn = null;// = new GetNearby(MainTravelActivity.this);
+
+        GetNearby gn = new ;// = new GetNearby(MainTravelActivity.this);
 
         gn.execute(url);
+
         */
+
         //Log.d("list of data", );
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
