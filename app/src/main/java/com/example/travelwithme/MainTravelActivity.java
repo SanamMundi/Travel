@@ -1,6 +1,7 @@
 package com.example.travelwithme;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,13 +12,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainTravelActivity extends AppCompatActivity {
-    private ActionBar toolbar;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+public class MainTravelActivity extends AppCompatActivity implements GetNearby.getNearbyListener{
+
+        private ActionBar toolbar;
     MapsNearMeFragment map = new MapsNearMeFragment();
 
 
@@ -28,9 +37,9 @@ public class MainTravelActivity extends AppCompatActivity {
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar1);
 
-
-
         loadFragment(new HomeFragment());
+
+
 
 
         toolbar = getSupportActionBar();
@@ -51,9 +60,26 @@ public class MainTravelActivity extends AppCompatActivity {
                         return true;
                     case(R.id.navigation_maps):
                         toolbar.setTitle("Maps");
-
-                        //fragment = new MapsNearMeFragment();
                         loadFragment(map);
+
+
+
+
+                        String lat="49.24";
+                        String lng="-123.1183";
+                        String category="cat=hotel";
+                        //String category="cat=car_rental";
+                        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
+                        String language="Accept-Language=en-US,en";
+                        String app_id="DemoAppId01082013GAL";
+                        String app_code="AJKnXv84fjrb0KIHawS0Tg";
+                        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,lat,lng,category,language,app_id,app_code);
+
+
+                        GetNearby getNearby = new GetNearby(MainTravelActivity.this);
+                        getNearby.execute(url);
+
+
 
                         //fragment = new MapFragment();
 
@@ -105,5 +131,40 @@ public class MainTravelActivity extends AppCompatActivity {
         else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+
+    @Override
+    public ArrayList getResult(String jsonData) {
+        Log.d("inside", jsonData);
+
+        ArrayList<LocationData> locationList = new ArrayList<>();
+        try{
+            JSONObject jo = new JSONObject(jsonData);
+            JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
+            JSONObject itemData;
+            String lat, lng;
+            String title;
+            String category;
+
+
+            for(int i=0; i<jArray.length(); i++){
+
+                itemData = jArray.getJSONObject(i);
+                lat = itemData.getJSONArray("position").getString(0);
+                lng = itemData.getJSONArray("position").getString(1);
+                title = itemData.getString("title");
+                category = itemData.getJSONObject("category").getString("id");
+
+                locationList.add(new LocationData(lat, title, category));
+                //locationList.add(new Location(lat+ "," + lng,title,category));
+                //locationList.
+                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category);
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

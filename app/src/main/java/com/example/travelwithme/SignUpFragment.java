@@ -58,21 +58,10 @@ public class SignUpFragment extends Fragment {
                             Toast.makeText(getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-
             }
         });
-
-
-
-
-
-
-
         return v;
     }
-
-
 }

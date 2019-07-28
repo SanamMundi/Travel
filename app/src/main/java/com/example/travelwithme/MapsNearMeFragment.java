@@ -35,9 +35,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 
 public class MapsNearMeFragment extends SupportMapFragment
-        implements OnMapReadyCallback,
+    implements //GetNearby.getNearbyListener,
+        OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -134,12 +141,30 @@ public class MapsNearMeFragment extends SupportMapFragment
             mCurrLocationMarker.remove();
         }
 
+
+
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+
+        /*
+        String cat = "cat=hotel";
+
+        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
+        String language="Accept-Language=en-US,en";
+        String app_id="DemoAppId01082013GAL";
+        String app_code="AJKnXv84fjrb0KIHawS0Tg";
+        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
+
+        GetNearby gn = null;// = new GetNearby(MainTravelActivity.this);
+
+        gn.execute(url);
+        */
+        //Log.d("list of data", );
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
         //move map camera
@@ -222,5 +247,45 @@ public class MapsNearMeFragment extends SupportMapFragment
             // permissions this app might request
         }
     }
+
+
+
+    /*
+    @Override
+
+    public ArrayList getResult(String jsonData) {
+
+        Log.d("inside", jsonData);
+
+        ArrayList<LocationData> locationList = new ArrayList<>();
+        try{
+            JSONObject jo = new JSONObject(jsonData);
+            JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
+            JSONObject itemData;
+            String lat, lng;
+            String title;
+            String category;
+            for(int i=0; i<jArray.length(); i++){
+
+                itemData = jArray.getJSONObject(i);
+                lat = itemData.getJSONArray("position").getString(0);
+                lng = itemData.getJSONArray("position").getString(1);
+                title = itemData.getString("title");
+                category = itemData.getJSONObject("category").getString("id");
+
+                locationList.add(new LocationData(lat, title, category));
+                //locationList.add(new Location(lat+ "," + lng,title,category));
+                //locationList.
+                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category);
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
+
+
+    }
+*/
 
 }
