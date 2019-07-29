@@ -1,9 +1,13 @@
 package com.example.travelwithme;
 
-public class LocationData {
+import java.io.Serializable;
+
+public class LocationData implements Serializable {
     private String loc;
     private String title;
     private String category;
+    private String address;
+    private String icon;
 
     public String getLoc() {
         return loc;
@@ -11,6 +15,22 @@ public class LocationData {
 
     public void setLoc(String loc) {
         this.loc = loc;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getTitle() {
@@ -29,9 +49,11 @@ public class LocationData {
         this.category = category;
     }
 
-    public LocationData(String loc, String title, String category) {
+    public LocationData(String loc, String title, String category, String address, String icon) {
         this.loc = loc;
         this.title = title;
         this.category = category;
+        this.address = address;
+        this.icon = icon;
     }
 }

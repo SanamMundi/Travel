@@ -44,22 +44,24 @@ public class SignUpFragment extends Fragment {
             public void onClick(View v) {
                 String email = eTEmail.getText().toString();
                 String password = eTPassword.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful())
-                        {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(getContext(), MainTravelActivity.class));
+                if(email.equals("")||password.equals("")){
+                    Toast.makeText(getActivity(), "Field/s empty", Toast.LENGTH_SHORT).show();
+                }else {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                startActivity(new Intent(getContext(), MainTravelActivity.class));
+                            } else {
+                                Toast.makeText(getContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else
-                        {
-                            Toast.makeText(getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
         return v;

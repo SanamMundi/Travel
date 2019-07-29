@@ -3,6 +3,8 @@ package com.example.travelwithme;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
@@ -39,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -55,6 +58,10 @@ public class MapsNearMeFragment extends SupportMapFragment
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+
+
+
+
 
     @Override
     public void onResume() {
@@ -142,8 +149,6 @@ public class MapsNearMeFragment extends SupportMapFragment
         }
 
 
-
-
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -156,21 +161,43 @@ public class MapsNearMeFragment extends SupportMapFragment
         mt.other(location.getLatitude(), location.getLongitude());
 
 
-        /*
-        String cat = "cat=hotel";
-
-        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
-        String language="Accept-Language=en-US,en";
-        String app_id="DemoAppId01082013GAL";
-        String app_code="AJKnXv84fjrb0KIHawS0Tg";
-        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
 
 
-        GetNearby gn = new ;// = new GetNearby(MainTravelActivity.this);
+        //Bundle args = getArguments();
 
-        gn.execute(url);
+        //String s = args.getString("list");
 
-        */
+
+        //ArrayList<LocationData> ld = (ArrayList<LocationData>) args.getSerializable("list");
+
+        //Log.d("1234565", ld.get(0).getTitle());
+        //Serializable ld = args.getSerializable("list");
+        //LocationData ld = null;
+
+        //ArrayList<LocationData> list = mt.getHotelsList();
+
+
+        //String data = args.getString("key", "nothing");
+        //Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+        //Log.d("1234567890", data);
+
+//        String cat = "cat=hotel";
+//
+//        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
+//        String language="Accept-Language=en-US,en";
+//        String app_id="DemoAppId01082013GAL";
+//        String app_code="AJKnXv84fjrb0KIHawS0Tg";
+//        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
+
+
+        //GetNearby gn = new ;// = new GetNearby(MainTravelActivity.this);
+
+        //gn.execute(url);
+
+
+//
+//        GetNearby gn = new GetNearby((GetNearby.getNearbyListener) getActivity());
+//        gn.execute(url);
 
         //Log.d("list of data", );
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);

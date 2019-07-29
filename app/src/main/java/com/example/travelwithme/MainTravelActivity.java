@@ -1,6 +1,8 @@
 package com.example.travelwithme;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,6 +30,7 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
 
         private ActionBar toolbar;
     MapsNearMeFragment map = new MapsNearMeFragment();
+    ArrayList<LocationData> locationList = new ArrayList<>();
 
 
     @Override
@@ -61,19 +64,6 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
                     case(R.id.navigation_maps):
                         toolbar.setTitle("Maps");
                         loadFragment(map);
-
-
-
-
-
-
-
-
-                        //fragment = new MapFragment();
-
-                        //loadFragment(fragment);
-                        //Toast.makeText(MainTravelActivity.this, "maps fragment launched", Toast.LENGTH_SHORT).show();
-
                         return true;
                     case(R.id.navigation_tours):
                         toolbar.setTitle("Tours");
@@ -126,6 +116,8 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
 
         //String lat="49.24";
         //String lng="-123.1183";
+
+
         String category="cat=hotel";
         //String category="cat=car_rental";
         String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
@@ -144,7 +136,7 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
     public ArrayList getResult(String jsonData) {
         Log.d("inside", jsonData);
 
-        ArrayList<LocationData> locationList = new ArrayList<>();
+
         try{
             JSONObject jo = new JSONObject(jsonData);
             JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
@@ -152,6 +144,8 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
             String lat, lng;
             String title;
             String category;
+            String icon;
+            String address;
 
 
             for(int i=0; i<jArray.length(); i++){
@@ -161,16 +155,27 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
                 lng = itemData.getJSONArray("position").getString(1);
                 title = itemData.getString("title");
                 category = itemData.getJSONObject("category").getString("id");
-
-                locationList.add(new LocationData(lat, title, category));
+                icon = itemData.getString("icon");
+                address = itemData.getString("vicinity");
+                locationList.add(new LocationData(lat, title, category, address, icon));
                 //locationList.add(new Location(lat+ "," + lng,title,category));
                 //locationList.
-                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category);
+                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category + address + icon);
             }
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    public ArrayList<LocationData> getHotelsList(){
+        return locationList;
+    }
+
+    public void setHotelsList(ArrayList<LocationData> locationList){
+        this.locationList = locationList;
     }
 }
