@@ -26,11 +26,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainTravelActivity extends AppCompatActivity implements GetNearby.getNearbyListener{
+public class MainTravelActivity extends AppCompatActivity {
 
         private ActionBar toolbar;
     MapsNearMeFragment map = new MapsNearMeFragment();
-    ArrayList<LocationData> locationList = new ArrayList<>();
+
 
 
     @Override
@@ -127,55 +127,18 @@ public class MainTravelActivity extends AppCompatActivity implements GetNearby.g
         final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,lat,lng,category,language,app_id,app_code);
 
 
-        GetNearby getNearby = new GetNearby(MainTravelActivity.this);
-        getNearby.execute(url);
+       // GetNearby getNearby = new GetNearby(MainTravelActivity.this);
+        //getNearby.execute(url);
     }
 
 
-    @Override
-    public ArrayList getResult(String jsonData) {
-        Log.d("inside", jsonData);
 
 
-        try{
-            JSONObject jo = new JSONObject(jsonData);
-            JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
-            JSONObject itemData;
-            String lat, lng;
-            String title;
-            String category;
-            String icon;
-            String address;
+ //   public ArrayList<LocationData> getHotelsList(){
+   ///     return locationList;
+    //}
 
-
-            for(int i=0; i<jArray.length(); i++){
-
-                itemData = jArray.getJSONObject(i);
-                lat = itemData.getJSONArray("position").getString(0);
-                lng = itemData.getJSONArray("position").getString(1);
-                title = itemData.getString("title");
-                category = itemData.getJSONObject("category").getString("id");
-                icon = itemData.getString("icon");
-                address = itemData.getString("vicinity");
-                locationList.add(new LocationData(lat, title, category, address, icon));
-                //locationList.add(new Location(lat+ "," + lng,title,category));
-                //locationList.
-                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category + address + icon);
-            }
-
-
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public ArrayList<LocationData> getHotelsList(){
-        return locationList;
-    }
-
-    public void setHotelsList(ArrayList<LocationData> locationList){
-        this.locationList = locationList;
-    }
+    //public void setHotelsList(ArrayList<LocationData> locationList){
+      //  this.locationList = locationList;
+   // }
 }

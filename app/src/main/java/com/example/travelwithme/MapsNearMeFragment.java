@@ -45,8 +45,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class MapsNearMeFragment extends SupportMapFragment
-    implements //GetNearby.getNearbyListener,
+public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.getNearbyListener,
+
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -58,6 +58,7 @@ public class MapsNearMeFragment extends SupportMapFragment
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    ArrayList<LocationData> locationList = new ArrayList<>();
 
 
 
@@ -123,8 +124,8 @@ public class MapsNearMeFragment extends SupportMapFragment
     @Override
     public void onConnected(Bundle bundle) {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
+        //mLocationRequest.setInterval(1000);
+        //mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -158,7 +159,7 @@ public class MapsNearMeFragment extends SupportMapFragment
 
 
         MainTravelActivity mt = new MainTravelActivity();
-        mt.other(location.getLatitude(), location.getLongitude());
+        //mt.other(location.getLatitude(), location.getLongitude());
 
 
 
@@ -177,22 +178,24 @@ public class MapsNearMeFragment extends SupportMapFragment
         //ArrayList<LocationData> list = mt.getHotelsList();
 
 
-        //String data = args.getString("key", "nothing");
-        //Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-        //Log.d("1234567890", data);
-
-//        String cat = "cat=hotel";
+//        String data = args.getString("key", "nothing");
+//        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
 //
-//        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
-//        String language="Accept-Language=en-US,en";
-//        String app_id="DemoAppId01082013GAL";
-//        String app_code="AJKnXv84fjrb0KIHawS0Tg";
-//        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
+//
+//        Log.d("1234567890", data);
+
+        String cat = "cat=hotel";
+
+        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
+        String language="Accept-Language=en-US,en";
+        String app_id="DemoAppId01082013GAL";
+        String app_code="AJKnXv84fjrb0KIHawS0Tg";
+        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
 
 
-        //GetNearby gn = new ;// = new GetNearby(MainTravelActivity.this);
+        GetNearby gn = new GetNearby(this);
 
-        //gn.execute(url);
+        gn.execute(url);
 
 
 //
@@ -322,5 +325,44 @@ public class MapsNearMeFragment extends SupportMapFragment
 
     }
 */
+
+    @Override
+    public ArrayList getResult(String jsonData) {
+        Log.d("inside", jsonData);
+
+
+        try{
+            JSONObject jo = new JSONObject(jsonData);
+            JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
+            JSONObject itemData;
+            String lat, lng;
+            String title;
+            String category;
+            String icon;
+            String address;
+
+
+            for(int i=0; i<jArray.length(); i++){
+
+                itemData = jArray.getJSONObject(i);
+                lat = itemData.getJSONArray("position").getString(0);
+                lng = itemData.getJSONArray("position").getString(1);
+                title = itemData.getString("title");
+                category = itemData.getJSONObject("category").getString("id");
+                icon = itemData.getString("icon");
+                address = itemData.getString("vicinity");
+                locationList.add(new LocationData(lat, title, category, address, icon));
+                //locationList.add(new Location(lat+ "," + lng,title,category));
+                //locationList.
+                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category + address + icon);
+            }
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
 }
