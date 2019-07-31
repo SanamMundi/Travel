@@ -5,21 +5,21 @@ import java.util.ArrayList;
 public class Destination {
 
    // private String name;
-    private ArrayList<Restaurants> restaurants;
+    private Restaurants restaurants;
     //private String data;
 
     public Destination()
     {}
 
-    public ArrayList<Restaurants> getRestaurants() {
+    public Restaurants getRestaurants() {
         return restaurants;
     }
 
-    public void setRestaurants(ArrayList<Restaurants> restaurants) {
+    public void setRestaurants(Restaurants restaurants) {
         this.restaurants = restaurants;
     }
 
-    public Destination(ArrayList<Restaurants> rest)
+    public Destination(Restaurants rest)
     {
       //  this.name = name;
        // this.data = data;

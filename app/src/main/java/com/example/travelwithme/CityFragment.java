@@ -59,10 +59,10 @@ public class CityFragment extends Fragment {
             dm.setHeaderTitle("Section " + i);
 
             ArrayList<Destination> singleItem = new ArrayList<Destination>();
-           /* for (int j = 0; j <= 5; j++) {
+           for (int j = 0; j <= 5; j++) {
                 singleItem.add(new Destination(rest.get(i)));
-            }*/
-         singleItem.add(new Destination(rest));
+            }
+         //singleItem.add(new Destination(rest));
         //   singleItem.
 
             dm.setDestinations(singleItem);

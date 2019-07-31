@@ -33,7 +33,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         Destination singleItem = itemsList.get(i);
 
-       holder.tvTitle.setText(singleItem.getRestaurants().get(i).getName());
+       holder.tvTitle.setText(singleItem.getRestaurants().getName());
 
 
        /* Glide.with(mContext)
