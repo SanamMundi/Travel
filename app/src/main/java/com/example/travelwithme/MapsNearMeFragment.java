@@ -184,7 +184,8 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
 //
 //        Log.d("1234567890", data);
 
-        String cat = "cat=hotel";
+        String cat = "cat=restaurant";
+
 
         String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
         String language="Accept-Language=en-US,en";
@@ -343,6 +344,8 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
 
 
             for(int i=0; i<jArray.length(); i++){
+
+
 
                 itemData = jArray.getJSONObject(i);
                 lat = itemData.getJSONArray("position").getString(0);
