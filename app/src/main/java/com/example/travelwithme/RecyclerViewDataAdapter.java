@@ -3,6 +3,7 @@ package com.example.travelwithme;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         final String sectionName = dataList.get(i).getHeaderTitle();
 
         ArrayList singleSectionItems = dataList.get(i).getDestinations();
+
+        Log.d("try",dataList.get(i).getDestinations().toString()+"");
 
         itemRowHolder.itemTitle.setText(sectionName);
 

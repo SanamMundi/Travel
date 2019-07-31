@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -29,7 +30,8 @@ import java.util.ArrayList;
 public class MainTravelActivity extends AppCompatActivity {
 
         private ActionBar toolbar;
-    MapsNearMeFragment map = new MapsNearMeFragment();
+        MapsNearMeFragment map = new MapsNearMeFragment();
+        ReceiveData receiveData ;
 
 
 
@@ -37,8 +39,10 @@ public class MainTravelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_travel);
-        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar1);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        receiveData = new ReceiveData();
+        receiveData.receiveData("51.5074","-0.1278","restaurant");
 
         loadFragment(new HomeFragment());
 
