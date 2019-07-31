@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Destination {
 
-    private String name;
+   // private String name;
     private ArrayList<Restaurants> restaurants;
-    private String data;
+    //private String data;
 
     public Destination()
     {}
@@ -19,14 +19,14 @@ public class Destination {
         this.restaurants = restaurants;
     }
 
-    public Destination(String name, String data)
+    public Destination(ArrayList<Restaurants> rest)
     {
-        this.name = name;
-        this.data = data;
-        this.restaurants =getRestaurants();
+      //  this.name = name;
+       // this.data = data;
+        this.restaurants =rest;
 
     }
-
+/*
     public String getData() {
         return data;
     }
@@ -46,7 +46,7 @@ public class Destination {
     }
 
 
-
+*/
 
 
 }

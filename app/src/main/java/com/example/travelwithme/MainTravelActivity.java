@@ -31,7 +31,7 @@ public class MainTravelActivity extends AppCompatActivity {
 
         private ActionBar toolbar;
         MapsNearMeFragment map = new MapsNearMeFragment();
-        ReceiveData receiveData ;
+
 
 
 
@@ -41,8 +41,7 @@ public class MainTravelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_travel);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        receiveData = new ReceiveData();
-        receiveData.receiveData("51.5074","-0.1278","restaurant");
+
 
         loadFragment(new HomeFragment());
 

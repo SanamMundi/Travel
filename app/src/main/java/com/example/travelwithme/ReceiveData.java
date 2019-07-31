@@ -12,15 +12,15 @@ public class ReceiveData {
     GetData data = new GetData();
     String myData;
 
-    public void receiveData(String lat,String lng,String type)
+    public ArrayList<Restaurants> receiveData(String lat,String lng,String type)
     {
 
        myData=data.getData("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +lat+","+lng+"&radius=5000&type="+type+"&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
-       restaurantData(myData);
+       return restaurantData(myData);
 
     }
 
-    public void restaurantData(String data)
+    public ArrayList<Restaurants> restaurantData(String data)
     {
         try
         {
@@ -51,19 +51,20 @@ public class ReceiveData {
             }
 
 
+            return restaurants;
+          //destination.setRestaurants(restaurants);
 
-          destination.setRestaurants(restaurants);
-
-           for(int i =1; i<restaurants.size();i++)
+          /* for(int i =1; i<restaurants.size();i++)
           {
                 Log.d("name",destination.getRestaurants().get(i).getName()+"");
 
-          }
+          }*/
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+        return null;
 
     }
 
