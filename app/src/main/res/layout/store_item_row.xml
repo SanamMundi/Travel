@@ -24,9 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-
+                android:scaleType="center"
                 android:clickable="true"
-                android:scaleType="fitXY" />
+               />
 
             <TextView
                 android:id="@+id/title"

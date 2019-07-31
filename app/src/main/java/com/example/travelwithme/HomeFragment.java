@@ -7,6 +7,7 @@ import android.graphics.Movie;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -127,7 +128,20 @@ public class HomeFragment extends Fragment {
                 super(view);
                 title = view.findViewById(R.id.title);
                 thumbnail = view.findViewById(R.id.thumbnail);
+
+                thumbnail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CityFragment city = new CityFragment();
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.container, city);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
             }
+
+
         }
 
 
