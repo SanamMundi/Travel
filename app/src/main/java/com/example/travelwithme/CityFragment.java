@@ -52,20 +52,31 @@ public class CityFragment extends Fragment {
     }
 
     public void createDummyData(ArrayList<Restaurants> rest) {
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 4; i++) {
 
             SectionalDataModel dm = new SectionalDataModel();
 
-            dm.setHeaderTitle("Section " + i);
+            String[] headers = {"Restaurants", "Hotels", "Tours", "Places of Interest"};
+
+            dm.setHeaderTitle(headers[i-1]);
 
             ArrayList<Destination> singleItem = new ArrayList<Destination>();
-           for (int j = 0; j <= 5; j++) {
-                singleItem.add(new Destination(rest.get(i)));
-            }
+
+//            if(i==1){
+//                for(int a=0; a<rest.size(); a++){
+//
+//                }
+//
+//            }
+            singleItem.add(new Destination(rest.get(5)));
+            dm.setDestinations(singleItem);
+//           for (int j = 0; j <= 5; j++) {
+//                singleItem.add(new Destination(rest.get(i)));
+//            }
          //singleItem.add(new Destination(rest));
         //   singleItem.
 
-            dm.setDestinations(singleItem);
+
             sectionalDataModels.add(dm);
 
         }

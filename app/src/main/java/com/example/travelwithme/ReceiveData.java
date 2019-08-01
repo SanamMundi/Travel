@@ -24,6 +24,7 @@ public class ReceiveData {
     {
         try
         {
+
             ArrayList<Restaurants> restaurants = new ArrayList<>();
             Restaurants rest;
 
@@ -47,6 +48,8 @@ public class ReceiveData {
                 rest.setPhoto(pic1.getString("photo_reference"));
                 restaurants.add(rest);
 
+                Log.d("Dfsdfasdf", rest.getName() +"" );
+
 
             }
 
@@ -54,11 +57,11 @@ public class ReceiveData {
             return restaurants;
           //destination.setRestaurants(restaurants);
 
-          /* for(int i =1; i<restaurants.size();i++)
-          {
-                Log.d("name",destination.getRestaurants().get(i).getName()+"");
-
-          }*/
+//           for(int i =1; i<restaurants.size();i++)
+//          {
+//                Log.d("name",destination.getRestaurants().get(i).getName()+"");
+//
+//          }
         }
         catch(Exception e)
         {
