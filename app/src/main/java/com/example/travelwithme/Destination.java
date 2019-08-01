@@ -1,52 +1,29 @@
 package com.example.travelwithme;
 
-import java.util.ArrayList;
 
 public class Destination {
 
-   // private String name;
-    private Restaurants restaurants;
-    //private String data;
+
+    private Data data;
 
     public Destination()
     {}
 
-    public Restaurants getRestaurants() {
-        return restaurants;
-    }
-
-    public void setRestaurants(Restaurants restaurants) {
-        this.restaurants = restaurants;
-    }
-
-    public Destination(Restaurants rest)
-    {
-      //  this.name = name;
-       // this.data = data;
-        this.restaurants =rest;
-
-    }
-/*
-    public String getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
-    public String getName()
+    public Destination(Data data)
     {
-        return name;
+
+        this.data =data;
+
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-
-*/
 
 
 }

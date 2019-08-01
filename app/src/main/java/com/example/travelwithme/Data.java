@@ -1,6 +1,6 @@
 package com.example.travelwithme;
 
-public class Restaurants {
+public class Data {
 
     private String name;
     private String photo;
@@ -10,7 +10,7 @@ public class Restaurants {
     private String lat;
     private String lng;
     private String icon;
-    private final String category = "Restaurant";
+
 
     public String getName() {
         return name;

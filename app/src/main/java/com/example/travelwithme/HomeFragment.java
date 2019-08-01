@@ -2,6 +2,7 @@ package com.example.travelwithme;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Movie;
 import android.graphics.Rect;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +22,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
-    public String[] cities = {"London", "Vancouver", "New Delhi", "Amsterdam", "Venice", "Los Angeles", "New York", "Paris", "Bali", "Dubai"};
+
+
+    public ArrayList<String> cities;
+    public String[] temp = {"London", "Vancouver", "New Delhi", "Amsterdam", "Venice", "Los Angeles", "New York", "Paris", "Bali", "Dubai"};
 
     public int[] images ={R.drawable.london,R.drawable.vancouver, R.drawable.delhi,R.drawable.amsterdam,R.drawable.venice,R.drawable.losangeles,R.drawable.newyork,R.drawable.paris,R.drawable.bali,R.drawable.dubai};
     private RecyclerView recyclerView;
@@ -54,6 +61,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        cities = new ArrayList<>();
+        for(String s: temp)
+            cities.add(s);
+
         recyclerView = view.findViewById(R.id.recycler_view);
 
         mAdapter = new HomeAdapter(getActivity(), cities);
@@ -118,7 +129,7 @@ public class HomeFragment extends Fragment {
 
     class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
         private Context context;
-        private String[] cities;
+        private ArrayList<String> cities;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView title;
@@ -129,23 +140,14 @@ public class HomeFragment extends Fragment {
                 title = view.findViewById(R.id.title);
                 thumbnail = view.findViewById(R.id.thumbnail);
 
-                thumbnail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        CityFragment city = new CityFragment();
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.container, city);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
-                });
+
             }
 
 
         }
 
 
-        public HomeAdapter(Context context, String[] cities) {
+        public HomeAdapter(Context context, ArrayList<String> cities) {
             this.context = context;
             this.cities = cities;
         }
@@ -160,17 +162,36 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, final int position) {
-            holder.title.setText(cities[position]);
+
+
+
+
+
+            holder.title.setText(cities.get(position));
 
 
             Glide.with(context)
                     .load(images[position])
                     .into(holder.thumbnail);
+
+            holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CityFragment city = new CityFragment();
+                    Bundle args =  new Bundle();
+                    args.putString("city",cities.get(position));
+                    city.setArguments(args);
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, city);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return cities.length;
+            return cities.size();
         }
     }
 

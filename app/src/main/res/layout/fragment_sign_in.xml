@@ -60,14 +60,10 @@
             android:id="@+id/buttonLogin"
             android:layout_width="129dp"
             android:layout_height="67dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="64dp"
             android:text="@string/txtSignIn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintHorizontal_bias="0.127"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eTSignInPassword" />
 
@@ -77,12 +73,12 @@
             android:layout_height="67dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="@string/txtSignUp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.662"
+            app:layout_constraintHorizontal_bias="0.708"
             app:layout_constraintStart_toEndOf="@+id/buttonLogin"
             app:layout_constraintTop_toBottomOf="@+id/eTSignInPassword" />
 

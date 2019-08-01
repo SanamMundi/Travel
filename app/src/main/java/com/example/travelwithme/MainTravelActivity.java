@@ -70,6 +70,11 @@ public class MainTravelActivity extends AppCompatActivity {
                         return true;
                     case(R.id.navigation_tours):
                         toolbar.setTitle("Tours");
+                        Bundle b = new Bundle();
+                        b.putString("city","Vancouver");
+                        fragment = new CityFragment();
+                        fragment.setArguments(b);
+                        loadFragment(fragment);
                         return true;
                     case(R.id.navigation_logout):
                         logout();

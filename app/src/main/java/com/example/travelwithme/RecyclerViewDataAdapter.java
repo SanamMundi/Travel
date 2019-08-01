@@ -39,7 +39,7 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
 
         ArrayList singleSectionItems = dataList.get(i).getDestinations();
 
-        Log.d("try",dataList.get(i).getDestinations().toString()+"");
+
 
         itemRowHolder.itemTitle.setText(sectionName);
 
