@@ -44,6 +44,7 @@ public class SignInFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_sign_in, container, false);
 
 
+
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -75,6 +76,7 @@ public class SignInFragment extends Fragment {
                                     if (task.isSuccessful()) {
 
                                         FirebaseUser user = mAuth.getCurrentUser();
+
                                         startActivity(new Intent(getContext(), MainTravelActivity.class));
                                     } else {
                                         // If sign in fails, display a message to the user.
