@@ -111,5 +111,29 @@ public class ReceiveData {
         return null;
     }
 
+    public String getPhotoReference(String data)
+    {
+        try
+        {
+            JSONObject obj = new JSONObject(data);
+            JSONArray jsonArray = obj.getJSONArray("results");
+            JSONObject obj1 = jsonArray.getJSONObject(0);
+            if(obj1.has("photos")) {
+                JSONArray pic = obj1.getJSONArray("photos");
+                JSONObject pic1 = pic.getJSONObject(0);
+                return pic1.getString("photo_reference");
+
+            }
+            else
+                return "";
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

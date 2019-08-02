@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ public class CityFragment extends Fragment {
     final String[] types={"bakery","restaurants","park","supermarket"};
     private GetData cityData;
     private City myCity;
+
     TextView cityName;
 
 
@@ -44,6 +46,10 @@ public class CityFragment extends Fragment {
         Bundle b= getArguments();
         String city =  b.getString("city");
 
+
+
+
+
         cityName.setText(city);
 
         cityData= new GetData();
@@ -53,6 +59,8 @@ public class CityFragment extends Fragment {
 
         locData = cityData.getData("https://maps.googleapis.com/maps/api/geocode/json?address="+city+"&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
         myCity = receiveData.cityData(locData);
+
+
 
         for (int i =0;i<types.length;i++) {
             data = receiveData.receiveData(myCity.getLat(), myCity.getLng(), types[i]);

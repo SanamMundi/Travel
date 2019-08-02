@@ -1,5 +1,6 @@
 package com.example.travelwithme;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,12 +30,14 @@ import java.util.ArrayList;
 
 public class MainTravelActivity extends AppCompatActivity {
 
-        private ActionBar toolbar;
+        private Toolbar toolbar;
         MapsNearMeFragment map = new MapsNearMeFragment();
 
 
 
 
+
+    @TargetApi(21)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,28 +51,31 @@ public class MainTravelActivity extends AppCompatActivity {
 
 
 
-        toolbar = getSupportActionBar();
+
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
                 Fragment fragment;
                 switch(item.getItemId())
                 {
 
                     case(R.id.navigation_main):
-                        toolbar.setTitle("Home");
+
                         fragment = new HomeFragment();
                         loadFragment(fragment);
                         return true;
                     case(R.id.navigation_maps):
-                        toolbar.setTitle("Maps");
+
                         loadFragment(map);
                         return true;
                     case(R.id.navigation_tours):
-                        toolbar.setTitle("Tours");
+
                         Bundle b = new Bundle();
                         b.putString("city","Vancouver");
                         fragment = new CityFragment();

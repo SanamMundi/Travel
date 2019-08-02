@@ -1,6 +1,8 @@
 package com.example.travelwithme;
 
 
+import android.annotation.TargetApi;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -8,36 +10,51 @@ import android.graphics.Movie;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
-
+public class HomeFragment extends Fragment implements HomeAdapterListener {
 
 
     public ArrayList<String> cities;
     public String[] temp = {"London", "Vancouver", "New Delhi", "Amsterdam", "Venice", "Los Angeles", "New York", "Paris", "Bali", "Dubai"};
 
-    public int[] images ={R.drawable.london,R.drawable.vancouver, R.drawable.delhi,R.drawable.amsterdam,R.drawable.venice,R.drawable.losangeles,R.drawable.newyork,R.drawable.paris,R.drawable.bali,R.drawable.dubai};
+
     private RecyclerView recyclerView;
     private HomeAdapter mAdapter;
+
+    private SearchView searchView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,24 +67,33 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
 
+    @TargetApi(21)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         cities = new ArrayList<>();
-        for(String s: temp)
+        for (String s : temp)
             cities.add(s);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar1);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setVisibility(View.VISIBLE);
+
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
-        mAdapter = new HomeAdapter(getActivity(), cities);
+        mAdapter = new HomeAdapter(getContext(), cities, this);
+
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -79,6 +105,50 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_item, menu);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                mAdapter.getFilter().filter(query);
+                return false;
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_search) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onSelected(String item) {
+        Toast.makeText(getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
 
     private int dpToPx(int dp) {
         Resources r = getResources();
@@ -127,9 +197,14 @@ public class HomeFragment extends Fragment {
     }
 
 
-    class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
+    class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> implements Filterable {
         private Context context;
         private ArrayList<String> cities;
+        private ArrayList<String> filteredItems;
+        private HomeAdapterListener listener;
+        private City myCity;
+        private GetData data;
+        private ReceiveData receiveData;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView title;
@@ -140,6 +215,13 @@ public class HomeFragment extends Fragment {
                 title = view.findViewById(R.id.title);
                 thumbnail = view.findViewById(R.id.thumbnail);
 
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onSelected(filteredItems.get(getAdapterPosition()));
+                    }
+                });
+
 
             }
 
@@ -147,9 +229,11 @@ public class HomeFragment extends Fragment {
         }
 
 
-        public HomeAdapter(Context context, ArrayList<String> cities) {
+        public HomeAdapter(Context context, ArrayList<String> cities, HomeAdapterListener listener) {
             this.context = context;
             this.cities = cities;
+            this.listener = listener;
+            this.filteredItems = cities;
         }
 
         @Override
@@ -162,25 +246,39 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, final int position) {
+            final String cityName = filteredItems.get(position);
+            String locData;
+            String placeData;
+            myCity = new City();
+            receiveData = new ReceiveData();
+            data = new GetData();
 
 
+            locData = data.getData("https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
+
+            myCity = receiveData.cityData(locData);
 
 
+            placeData = data.getData("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + myCity.getLat() + "," + myCity.getLng() + "&radius=5000&type=city&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
+            String reference = receiveData.getPhotoReference(placeData);
 
-            holder.title.setText(cities.get(position));
+
+            holder.title.setText(cityName);
 
 
             Glide.with(context)
-                    .load(images[position])
+                    .load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + reference + "&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w")
+
                     .into(holder.thumbnail);
 
             holder.thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     CityFragment city = new CityFragment();
-                    Bundle args =  new Bundle();
-                    args.putString("city",cities.get(position));
+                    Bundle args = new Bundle();
+                    args.putString("city", cities.get(position));
                     city.setArguments(args);
+
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.container, city);
                     fragmentTransaction.addToBackStack(null);
@@ -191,8 +289,49 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return cities.size();
+            return filteredItems.size();
         }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    String query = constraint.toString();
+
+                    List<String> filtered = new ArrayList<>();
+
+                    if (query.isEmpty()) {
+                        filtered = cities;
+                    } else {
+                        for (String city : cities) {
+                            if (city.toLowerCase().contains(query.toLowerCase())) {
+                                filtered.add(city);
+                            }
+                        }
+                    }
+
+                    FilterResults results = new FilterResults();
+                    results.count = filtered.size();
+                    results.values = filtered;
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults results) {
+                    filteredItems = (ArrayList<String>) results.values;
+                    notifyDataSetChanged();
+                }
+            };
+
+
+        }
+
+
+
+
     }
 
 }
+
+
