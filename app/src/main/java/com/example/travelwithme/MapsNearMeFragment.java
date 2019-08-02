@@ -42,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -152,59 +153,88 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        Double vanLat = 49.2827;
+        Double vanLng = -123.1207;
+
+        ReceiveData rd = new ReceiveData();
+        ArrayList<Data> hotelData =  new ArrayList<>();
+        ArrayList<Data> restData = new ArrayList<>();
+
+
+
+        String hotels = "hotels";
+        String restaurants = "restaurant";
+
+        ArrayList<String> hlatitudesList = new ArrayList<>();
+        ArrayList<String> hlongitudesList = new ArrayList<>();
+        ArrayList<String> hnamesList = new ArrayList<>();
+
+        ArrayList<String> rlatitudesList = new ArrayList<>();
+        ArrayList<String> rlongitudesList = new ArrayList<>();
+        ArrayList<String> rnamesList = new ArrayList<>();
+        //////////////////////////////////////////
+        hotelData = rd.receiveData(location.getLatitude()+"", location.getLongitude()+"", hotels);
+        restData = rd.receiveData(location.getLatitude()+"", location.getLongitude()+"", restaurants);
+//        d = rd.receiveData(vanLat.toString(), vanLng.toString(), hotels);
+
+        for(int a=0; a<hotelData.size(); a++){
+            hlatitudesList.add(hotelData.get(a).getLat());
+            hlongitudesList.add(hotelData.get(a).getLng());
+            hnamesList.add(hotelData.get(a).getName());
+            Log.d("hotels-----", hotelData.get(a). getName()
+                    + hotelData.get(a).getVicinity() + hotelData.get(a).getLat()
+                    + hotelData.get(a).getLng());
+        }
+
+        for(int b = 0; b<restData.size(); b++){
+            rlatitudesList.add(restData.get(b).getLat());
+            rlongitudesList.add(restData.get(b).getLng());
+            rnamesList.add(restData.get(b).getName());
+            Log.d("restaurants----", restData.get(b). getName()
+                    + restData.get(b).getVicinity() + restData.get(b).getLat()
+                    + restData.get(b).getLng());
+        }
+
+
+//        LatLng vL = new LatLng(vanLat, vanLng);
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
+        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
-        MainTravelActivity mt = new MainTravelActivity();
+        for(int i=0; i<hotelData.size(); i++){
+            LatLng l = new LatLng(Double.parseDouble(hlatitudesList.get(i)) , Double.parseDouble(hlongitudesList.get(i)));
+            MarkerOptions markerOption = new MarkerOptions();
+            markerOption.position(l);
+            markerOption.title(hnamesList.get(i));
+            markerOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            mCurrLocationMarker = mGoogleMap.addMarker(markerOption);
+        }
+
+        for(int i=0; i<restData.size(); i++){
+            LatLng l = new LatLng(Double.parseDouble(rlatitudesList.get(i)) , Double.parseDouble(rlongitudesList.get(i)));
+            MarkerOptions markerOption1 = new MarkerOptions();
+            markerOption1.position(l);
+            markerOption1.title(rnamesList.get(i));
+            markerOption1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+            mCurrLocationMarker = mGoogleMap.addMarker(markerOption1);
+        }
+
+
+
+
+
+
+//        MainTravelActivity mt = new MainTravelActivity();
         //mt.other(location.getLatitude(), location.getLongitude());
 
 
-
-
-        //Bundle args = getArguments();
-
-        //String s = args.getString("list");
-
-
-        //ArrayList<LocationData> ld = (ArrayList<LocationData>) args.getSerializable("list");
-
-        //Log.d("1234565", ld.get(0).getTitle());
-        //Serializable ld = args.getSerializable("list");
-        //LocationData ld = null;
-
-        //ArrayList<LocationData> list = mt.getHotelsList();
-
-
-//        String data = args.getString("key", "nothing");
-//        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-//
-//
-//        Log.d("1234567890", data);
-
-        String cat = "cat=restaurant";
-
-
-        String site = "https://places.demo.api.here.com/places/v1/discover/explore?";
-        String language="Accept-Language=en-US,en";
-        String app_id="DemoAppId01082013GAL";
-        String app_code="AJKnXv84fjrb0KIHawS0Tg";
-        final String url = String.format("%sat=%s,%s&%s&%s;&app_id=%s&app_code=%s",site,location.getLatitude(),location.getLongitude(),cat,language,app_id,app_code);
-
-
-        GetNearby gn = new GetNearby(this);
-
-        gn.execute(url);
-
-
-//
-//        GetNearby gn = new GetNearby((GetNearby.getNearbyListener) getActivity());
-//        gn.execute(url);
-
         //Log.d("list of data", );
-        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+
 
         //move map camera
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
@@ -286,46 +316,6 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
             // permissions this app might request
         }
     }
-
-
-
-    /*
-    @Override
-
-    public ArrayList getResult(String jsonData) {
-
-        Log.d("inside", jsonData);
-
-        ArrayList<LocationData> locationList = new ArrayList<>();
-        try{
-            JSONObject jo = new JSONObject(jsonData);
-            JSONArray jArray = jo.getJSONObject("results").getJSONArray("items");
-            JSONObject itemData;
-            String lat, lng;
-            String title;
-            String category;
-            for(int i=0; i<jArray.length(); i++){
-
-                itemData = jArray.getJSONObject(i);
-                lat = itemData.getJSONArray("position").getString(0);
-                lng = itemData.getJSONArray("position").getString(1);
-                title = itemData.getString("title");
-                category = itemData.getJSONObject("category").getString("id");
-
-                locationList.add(new LocationData(lat, title, category));
-                //locationList.add(new Location(lat+ "," + lng,title,category));
-                //locationList.
-                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category);
-            }
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-
-        return null;
-
-
-    }
-*/
 
     @Override
     public ArrayList getResult(String jsonData) {

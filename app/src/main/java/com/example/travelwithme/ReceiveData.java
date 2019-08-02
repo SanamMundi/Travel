@@ -17,7 +17,6 @@ public class ReceiveData {
 
        myData=data.getData("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +lat+","+lng+"&radius=5000&type="+type+"&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
        return restaurantData(myData);
-
     }
 
     public ArrayList<Data> restaurantData(String data)
