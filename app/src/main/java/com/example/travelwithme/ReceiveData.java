@@ -135,4 +135,62 @@ public class ReceiveData {
     }
 
 
+
+
+    public String getPlaceId(String data)
+    {
+        try
+        {
+            JSONObject obj = new JSONObject(data);
+            JSONArray jsonArray = obj.getJSONArray("results");
+
+
+            JSONObject obj1 = jsonArray.getJSONObject(0);
+            String placeid = obj1.getString("place_id");
+            return placeid;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public ArrayList<Reviews> getReviews(String data)
+    {
+        try
+        {
+            ArrayList<Reviews> reviews = new ArrayList<>();
+            Reviews r;
+            JSONObject obj = new JSONObject(data);
+
+
+
+            JSONObject obj1 = obj.getJSONObject("result");
+            JSONArray jarray = obj1.getJSONArray("reviews");
+
+            for(int i =0;i<jarray.length();i++) {
+                r=new Reviews();
+                JSONObject obj2 = jarray.getJSONObject(i);
+                if(obj2.has("author_name"))
+                    r.setName(obj2.getString("author_name"));
+                if(obj2.has("text"))
+                    r.setReview(obj2.getString("text"));
+
+                if(r.getName()!=null && r.getReview()!=null)
+                    reviews.add(r);
+
+            }
+            return reviews;
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

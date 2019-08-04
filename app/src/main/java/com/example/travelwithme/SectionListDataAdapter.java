@@ -1,6 +1,11 @@
 package com.example.travelwithme;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +24,7 @@ import java.util.ArrayList;
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder>{
 
     private ArrayList<Destination> itemsList;
+    private Destination singleItem;
 
     private Context mContext;
 
@@ -39,7 +45,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         Float rate;
 
-        Destination singleItem = itemsList.get(i);
+       singleItem = itemsList.get(i);
 
        holder.tvTitle.setText(singleItem.getData().getName());
 
@@ -60,6 +66,23 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             holder.vicinity.setText(singleItem.getData().getVicinity());
         else
             holder.vicinity.setText("Near " +singleItem.getData().getVicinity());
+
+
+        holder.itemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                b.putString("loc",singleItem.getData().getName());
+                ReviewsFragment rv = new ReviewsFragment();
+                rv.setArguments(b);
+
+
+                FragmentTransaction fragmentTransaction = ((AppCompatActivity)mContext).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, rv);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
     }
