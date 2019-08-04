@@ -197,7 +197,6 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
         }
 
 
-//        LatLng vL = new LatLng(vanLat, vanLng);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
@@ -223,7 +222,7 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
             markerOption1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             mCurrLocationMarker = mGoogleMap.addMarker(markerOption1);
         }
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
 
     }
 
