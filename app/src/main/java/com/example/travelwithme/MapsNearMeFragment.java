@@ -223,20 +223,6 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
             markerOption1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             mCurrLocationMarker = mGoogleMap.addMarker(markerOption1);
         }
-
-
-
-
-
-
-//        MainTravelActivity mt = new MainTravelActivity();
-        //mt.other(location.getLatitude(), location.getLongitude());
-
-
-        //Log.d("list of data", );
-
-
-        //move map camera
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
 
     }

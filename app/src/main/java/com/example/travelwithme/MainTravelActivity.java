@@ -100,7 +100,7 @@ public class MainTravelActivity extends AppCompatActivity {
 
 
 
-    private void loadFragment(Fragment fragment)
+    public void loadFragment(Fragment fragment)
     {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container,fragment);
