@@ -79,20 +79,7 @@ public class SignUpFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                db.collection("Users").add(user.getUid())
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d("SignUp", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("SignUp", "Error adding document", e);
-                                            }
-                                        });
-
+                              
                                 HashMap<String,String> data =  new HashMap<>();
                                 data.put("email",user.getEmail());
 
