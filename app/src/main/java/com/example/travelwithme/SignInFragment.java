@@ -27,6 +27,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Random;
+
 
 public class SignInFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -76,6 +78,7 @@ public class SignInFragment extends Fragment {
 
                 if(email.equals("")||password.equals("")){
                     Toast.makeText(getActivity(), "Field/s empty", Toast.LENGTH_SHORT).show();
+
 
                 }else {
                     mAuth.signInWithEmailAndPassword(email, password)
