@@ -92,7 +92,8 @@ public class NavMore extends Fragment {
                 }
                 if (nav[position].equals("My Reservations"))
                 {
-
+                    ReservationFragment rf = new ReservationFragment();
+                    loadFragment(rf);
                 }
                 if(nav[position].equals("Logout"))
                 {
