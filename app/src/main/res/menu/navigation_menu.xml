@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/account"
+        android:title="View User accounts"/>
+    <item android:id="@+id/reviews"
+        android:title="View Hotel reviews"/>
+    <item android:id="@+id/application"
+        android:title="Go to Application"/>
+    <item android:id="@+id/logout"
+        android:title="Go to Logout"/>
+
+</menu>

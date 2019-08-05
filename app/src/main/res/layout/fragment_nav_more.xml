@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-
+        android:padding="10dp"
         android:gravity="center_horizontal"
         android:id="@+id/user"
-        android:padding="10dp"/>
+        />
 
 
     <ImageView

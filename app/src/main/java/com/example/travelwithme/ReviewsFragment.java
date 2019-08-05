@@ -25,8 +25,6 @@ public class ReviewsFragment extends Fragment {
     private ArrayList<Reviews> reviews;
     GetData data = new GetData();
     ReceiveData rd=new ReceiveData();
-    Button writeReview;
-    EditText et ;
     Reviews rv;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
@@ -55,26 +53,10 @@ public class ReviewsFragment extends Fragment {
         String myData2 = data.getData("https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeid+"&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
         reviews=rd.getReviews(myData2);
 
-        et = (EditText)v.findViewById(R.id.write_review);
-        writeReview = (Button)v.findViewById(R.id.reviewButton);
+
         user = auth.getCurrentUser();
 
-        writeReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                rv.setName(user.getEmail());
-                rv.setReview(et.getText().toString());
-
-                reviews.add(rv);
-
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container, new ReviewsFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-            }
-        });
 
 
 

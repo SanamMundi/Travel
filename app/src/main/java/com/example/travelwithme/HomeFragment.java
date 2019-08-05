@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
     private RecyclerView recyclerView;
     private HomeAdapter mAdapter;
 
-    private SearchView searchView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,7 +74,7 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
     }
 
 
-    @TargetApi(21)
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,9 +84,6 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
         for (String s : temp)
             cities.add(s);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar1);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setVisibility(View.VISIBLE);
 
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -107,36 +103,19 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
     }
 
 
+
+
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_item, menu);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                mAdapter.getFilter().filter(query);
-                return false;
-            }
-        });
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_search) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -191,6 +170,8 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
         /**
          * Converting dp to pixel
          */
+
+
 
     }
 
@@ -322,6 +303,8 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
                 }
             };
         }
+
+
     }
 
 }

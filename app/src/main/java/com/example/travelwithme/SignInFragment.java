@@ -23,12 +23,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class SignInFragment extends Fragment {
     private FirebaseAuth mAuth;
     private EditText eTEmail,eTPassword;
+    FirebaseFirestore db;
     int RC_SIGN_IN;
+    String userRole;
 
     public SignInFragment()
     {
@@ -42,6 +47,9 @@ public class SignInFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v =inflater.inflate(R.layout.fragment_sign_in, container, false);
+        db = FirebaseFirestore.getInstance();
+
+
 
 
 
@@ -59,6 +67,7 @@ public class SignInFragment extends Fragment {
         eTEmail = v.findViewById(R.id.eTSignInEmail);
         eTPassword =v.findViewById(R.id.eTSignInPassword);
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,9 +84,27 @@ public class SignInFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
 
-                                        FirebaseUser user = mAuth.getCurrentUser();
 
-                                        startActivity(new Intent(getContext(), MainTravelActivity.class));
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        DocumentReference docRef =  db.collection("Users").document(user.getUid());
+                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    userRole=document.get("role")+"";
+                                                    if(userRole.equals("admin"))
+                                                        startActivity(new Intent(getContext(),AdminActivity.class));
+                                                    else
+                                                        startActivity(new Intent(getContext(), MainTravelActivity.class));
+
+                                                } else {
+                                                    Log.d("signin", "No such document");
+                                                }
+                                            }
+                                        });
+
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(getContext(), "Authentication failed.",
