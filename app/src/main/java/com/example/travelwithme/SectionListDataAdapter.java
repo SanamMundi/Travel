@@ -21,13 +21,12 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder>{
+public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
     private ArrayList<Destination> itemsList;
     private Destination singleItem;
 
     private Context mContext;
-
 
 
     public SectionListDataAdapter(Context context, ArrayList<Destination> itemsList) {
@@ -47,27 +46,27 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         Float rate;
 
-       singleItem = itemsList.get(i);
+        singleItem = itemsList.get(i);
 
-       holder.tvTitle.setText(singleItem.getData().getName());
+        holder.tvTitle.setText(singleItem.getData().getName());
 
 
-        if(singleItem.getData().getPhoto().equals("Not available"))
-        {}
-        else{
+        if (singleItem.getData().getPhoto().equals("Not available")) {
+        } else {
 
-        Glide.with(mContext)
-                .load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+singleItem.getData().getPhoto()+"&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w")
+            Glide.with(mContext)
+                    .load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + singleItem.getData().getPhoto() + "&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w")
 
-                .into(holder.itemImage);}
+                    .into(holder.itemImage);
+        }
 
         rate = Float.parseFloat(singleItem.getData().getRatings());
         holder.ratingBar.setRating(rate);
 
-        if(singleItem.getData().getVicinity().equals("Not available"))
+        if (singleItem.getData().getVicinity().equals("Not available"))
             holder.vicinity.setText(singleItem.getData().getVicinity());
         else
-            holder.vicinity.setText("Near " +singleItem.getData().getVicinity());
+            holder.vicinity.setText("Near " + singleItem.getData().getVicinity());
 
 
         holder.itemImage.setOnClickListener(new View.OnClickListener() {
@@ -80,29 +79,40 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 String name = holder.tvTitle.getText().toString();
 
                 Log.d("hello", "onClick: " + list);
-                String[] array ;
+                String[] array;
                 ArrayList<String> dass = new ArrayList<>();
 
                 array = list.split("--");
 
-                for(String s: array){
+                for (String s : array) {
                     Log.d("uiop", s);
                     dass.add(s);
                 }
 
-                if(dass.contains(name)){
+                if (dass.contains(name)) {
                     Toast.makeText(v.getContext(), "haiga", Toast.LENGTH_LONG).show();
-                }else{
+
+                    Bundle l = new Bundle();
+                    l.putString("hotelName", name);
+                    HotelFragment hf = new HotelFragment();
+                    hf.setArguments(l);
+
+                    FragmentTransaction fragmentTransaction = ((AppCompatActivity)mContext).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, hf);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                } else {
                     Bundle b = new Bundle();
-                b.putString("loc",singleItem.getData().getName());
-                ReviewsFragment rv = new ReviewsFragment();
-                rv.setArguments(b);
+                    b.putString("loc", singleItem.getData().getName());
+                    ReviewsFragment rv = new ReviewsFragment();
+                    rv.setArguments(b);
 
 
-                FragmentTransaction fragmentTransaction = ((AppCompatActivity)mContext).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container, rv);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    FragmentTransaction fragmentTransaction = ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, rv);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
 
                 Log.d("asdfghj", name);
@@ -122,7 +132,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
 
                  */
-
 
 
 //                Bundle b = new Bundle();
@@ -148,7 +157,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView tvTitle,vicinity;
+        protected TextView tvTitle, vicinity;
 
         protected ImageView itemImage;
         protected RatingBar ratingBar;
@@ -159,8 +168,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
             this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
-            this.ratingBar = (RatingBar)view.findViewById(R.id.rating_bar);
-            this.vicinity = (TextView)view.findViewById(R.id.vicinity);
+            this.ratingBar = (RatingBar) view.findViewById(R.id.rating_bar);
+            this.vicinity = (TextView) view.findViewById(R.id.vicinity);
 
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -169,15 +178,15 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                     SharedPreference sp = new SharedPreference();
 
-                     String list = sp.getPrefVal(mContext, "hotelNames");
+                    String list = sp.getPrefVal(mContext, "hotelNames");
 
                     Log.d("hello", "onClick: " + list);
-                    String[] array ;
+                    String[] array;
                     ArrayList<String> dass = new ArrayList<>();
 
                     array = list.split("--");
 
-                    for(String s: array){
+                    for (String s : array) {
                         Log.d("uiop", s);
                         dass.add(s);
                     }
@@ -185,21 +194,17 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                     Log.d("listaala", dass.get(5));
 
-                    if(dass.contains(tvTitle.getText())){
+                    if (dass.contains(tvTitle.getText())) {
                         Toast.makeText(v.getContext(), "haiga", Toast.LENGTH_LONG).show();
-                    }else{
+                    } else {
                         Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
                     }
-
 
 
 //
 //                    dass.add(list.split("--").toString());
 
 //                    Log.d("123456", dass.get(2));
-
-
-
 
 
                 }
