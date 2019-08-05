@@ -43,7 +43,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, int i) {
 
         Float rate;
 
@@ -73,7 +73,27 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         holder.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = new Bundle();
+
+                SharedPreference sp = new SharedPreference();
+                String list = sp.getPrefVal(mContext, "hotelNames");
+
+                String name = holder.tvTitle.getText().toString();
+
+                Log.d("hello", "onClick: " + list);
+                String[] array ;
+                ArrayList<String> dass = new ArrayList<>();
+
+                array = list.split("--");
+
+                for(String s: array){
+                    Log.d("uiop", s);
+                    dass.add(s);
+                }
+
+                if(dass.contains(name)){
+                    Toast.makeText(v.getContext(), "haiga", Toast.LENGTH_LONG).show();
+                }else{
+                    Bundle b = new Bundle();
                 b.putString("loc",singleItem.getData().getName());
                 ReviewsFragment rv = new ReviewsFragment();
                 rv.setArguments(b);
@@ -83,6 +103,38 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 fragmentTransaction.replace(R.id.container, rv);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                }
+
+                Log.d("asdfghj", name);
+
+                /*
+
+
+
+
+
+
+
+
+
+
+                    Log.d("listaala", dass.get(5));
+
+
+                 */
+
+
+
+//                Bundle b = new Bundle();
+//                b.putString("loc",singleItem.getData().getName());
+//                ReviewsFragment rv = new ReviewsFragment();
+//                rv.setArguments(b);
+//
+//
+//                FragmentTransaction fragmentTransaction = ((AppCompatActivity)mContext).getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container, rv);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
 

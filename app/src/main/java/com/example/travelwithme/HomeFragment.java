@@ -128,8 +128,6 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
                 return false;
             }
         });
-
-
     }
 
     @Override
@@ -323,13 +321,7 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
                     notifyDataSetChanged();
                 }
             };
-
-
         }
-
-
-
-
     }
 
 }

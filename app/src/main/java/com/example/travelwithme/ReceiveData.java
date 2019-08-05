@@ -82,20 +82,20 @@ public class ReceiveData {
     public City cityData(String data)
     {
 
+        Log.d("1234567890", "hello");
         try {
             City city = new City();
 
             JSONObject obj = new JSONObject(data);
             JSONArray jsonArray = obj.getJSONArray("results");
-
-
             JSONObject obj1 = jsonArray.getJSONObject(0);
-
             JSONObject geo = obj1.getJSONObject("geometry");
             JSONObject loc = geo.getJSONObject("location");
             city.setLat(loc.getString("lat"));
             city.setLng(loc.getString("lng"));
 
+
+            Log.d("1234567", loc.getString("lat"));
             return city;
 
 
