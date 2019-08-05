@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Random;
+
 
 public class SignInFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -67,6 +69,7 @@ public class SignInFragment extends Fragment {
 
                 if(email.equals("")||password.equals("")){
                     Toast.makeText(getActivity(), "Field/s empty", Toast.LENGTH_SHORT).show();
+
 
                 }else {
                     mAuth.signInWithEmailAndPassword(email, password)

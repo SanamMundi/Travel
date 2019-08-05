@@ -94,6 +94,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                     Bundle l = new Bundle();
                     l.putString("hotelName", name);
+                    l.putString("photo", singleItem.getData().getPhoto());
                     HotelFragment hf = new HotelFragment();
                     hf.setArguments(l);
 

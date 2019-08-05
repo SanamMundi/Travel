@@ -78,20 +78,14 @@ public class SignUpFragment extends Fragment {
 
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
-
-                              
                                 HashMap<String,String> data =  new HashMap<>();
                                 data.put("email",user.getEmail());
-
-
                                 if(user.getEmail()!="jasmine@gmail.com")
                                     data.put("role","user");
                                 else
                                     data.put("role","admin");
 
                                 db.collection("Users").document(user.getUid()).set(data);
-
-
                                 startActivity(new Intent(getContext(), MainTravelActivity.class));
                             } else {
                                 Toast.makeText(getContext(), "Authentication failed.",
