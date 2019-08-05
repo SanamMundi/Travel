@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TravelWithMe</string>
+    <string name="name">TravelWithMe</string>
     <string name="splashImg">Splash Activity</string>
     <string name="txtSignIn">Sign In</string>
     <string name="txtSignUp">Sign Up</string>

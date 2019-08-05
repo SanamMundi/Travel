@@ -22,6 +22,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     private Context mContext;
 
+
+
     public SectionListDataAdapter(Context context, ArrayList<Destination> itemsList) {
         this.itemsList = itemsList;
         this.mContext = context;
@@ -90,8 +92,40 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 @Override
                 public void onClick(View v) {
 
+                    SharedPreference sp = new SharedPreference();
 
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+                     String list = sp.getPrefVal(mContext, "hotelNames");
+
+                    Log.d("hello", "onClick: " + list);
+                    String[] array ;
+                    ArrayList<String> dass = new ArrayList<>();
+
+                    array = list.split("--");
+
+                    for(String s: array){
+                        Log.d("uiop", s);
+                        dass.add(s);
+                    }
+
+
+                    Log.d("listaala", dass.get(5));
+
+                    if(dass.contains(tvTitle.getText())){
+                        Toast.makeText(v.getContext(), "haiga", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+//
+//                    dass.add(list.split("--").toString());
+
+//                    Log.d("123456", dass.get(2));
+
+
+
+
 
                 }
             });

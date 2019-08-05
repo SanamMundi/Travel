@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -30,6 +31,8 @@ public class CityFragment extends Fragment {
     final String[] types = {"bakery", "restaurants", "park", "supermarket"};
     private GetData cityData;
     private City myCity;
+    String hotNames = "";
+    SharedPreference sp = new SharedPreference();
 
     TextView cityName;
 
@@ -78,6 +81,10 @@ public class CityFragment extends Fragment {
         ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
                 MapFragment mf = new MapFragment();
                 Bundle args = new Bundle();
                 args.putDouble("lat", Double.parseDouble(myCity.getLat()));
@@ -139,6 +146,15 @@ public class CityFragment extends Fragment {
                 for (int j = 1; j <= 6; j++) {
 
                     singleItem.add(new Destination(data.get(1).get(j)));
+
+                    if(j==6){
+                        hotNames += data.get(1).get(j).getName();
+                    }else{
+                        hotNames += data.get(1).get(j).getName()+ "--";
+                    }
+
+                    Log.d("damn", data.get(1).get(j).getName());
+                    Log.d("fullNames", hotNames);
                 }
 
             }
@@ -163,7 +179,9 @@ public class CityFragment extends Fragment {
             sectionalDataModels.add(dm);
 
         }
+        Log.d("fullNames12345", hotNames);
 
+        sp.setStringPrefVal(getContext(), "hotelNames", hotNames);
 
     }
 }
