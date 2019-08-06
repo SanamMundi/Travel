@@ -60,6 +60,7 @@ public class ReservationFragment extends Fragment {
 
         final View v = inflater.inflate(R.layout.fragment_reservation, container, false);
 
+       hotel = new ArrayList<>();
 
         hotel = new ArrayList<>();
         suites = new ArrayList<>();

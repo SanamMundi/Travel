@@ -85,12 +85,12 @@ public class SignUpFragment extends Fragment {
 
 
                                 if(!user.getEmail().equals("jasmine@gmail.com")) {
-                                    intent = new Intent(getContext(),AdminActivity.class);
+                                    intent = new Intent(getContext(),MainTravelActivity.class);
 
                                     data.put("role", "user");
                                 }
                                 else {
-                                    intent = new Intent(getContext(), MainTravelActivity.class);
+                                    intent = new Intent(getContext(), AdminActivity.class);
                                     data.put("role", "admin");
                                 }
 

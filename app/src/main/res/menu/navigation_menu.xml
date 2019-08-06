@@ -7,6 +7,6 @@
     <item android:id="@+id/application"
         android:title="Go to Application"/>
     <item android:id="@+id/logout"
-        android:title="Go to Logout"/>
+        android:title="Logout"/>
 
 </menu>
