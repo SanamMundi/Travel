@@ -63,7 +63,6 @@ public class UserReviewFragment extends Fragment {
                         hotelName.add(d.getId());
                         userEmail.add(d.get("uemail").toString());
                         userReview.add(d.get("review").toString());
-                        Log.d("123456", d.getId() + "==> " + d.getData());
                     }
 
 

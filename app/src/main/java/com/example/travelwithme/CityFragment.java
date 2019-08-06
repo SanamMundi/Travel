@@ -67,7 +67,6 @@ public class CityFragment extends Fragment {
 
         locData = cityData.getData("https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=AIzaSyBYNwaeGibgmiD_43QTVQ4F-YkVkWeM00w");
         myCity = receiveData.cityData(locData);
-        Log.d("Dfasd", myCity.getLat());
 
 
         for (int i = 0; i < types.length; i++) {
@@ -91,7 +90,6 @@ public class CityFragment extends Fragment {
                 args.putDouble("lng", Double.parseDouble(myCity.getLng()));
                 args.putString("name", city);
                 mf.setArguments(args);
-                Log.d("Dfasddfasdf", myCity.getLat());
 
 
 
@@ -129,13 +127,6 @@ public class CityFragment extends Fragment {
 
             ArrayList<Destination> singleItem = new ArrayList<Destination>();
 
-//            if(i==1){
-//                for(int a=0; a<rest.size(); a++){
-//
-//                }
-//
-//            }
-            //singleItem.add(new Destination(rest.get(i)));
             if (i == 1) {
                 for (int j = 1; j <= 6; j++) {
 
@@ -152,9 +143,6 @@ public class CityFragment extends Fragment {
                     }else{
                         hotNames += data.get(1).get(j).getName()+ "--";
                     }
-
-                    Log.d("damn", data.get(1).get(j).getName());
-                    Log.d("fullNames", hotNames);
                 }
 
             }
@@ -179,7 +167,6 @@ public class CityFragment extends Fragment {
             sectionalDataModels.add(dm);
 
         }
-        Log.d("fullNames12345", hotNames);
 
         sp.setStringPrefVal(getContext(), "hotelNames", hotNames);
 

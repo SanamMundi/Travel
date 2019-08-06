@@ -81,8 +81,6 @@ public class HotelFragment extends Fragment {
 
 
 
-        Log.d("randomnumber", n + "");
-        Log.d("randomnumber", hotels[n] + "");
         db.collection("Hotels").document("Rooms")
                 .collection(hotels[n]).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -92,16 +90,6 @@ public class HotelFragment extends Fragment {
                         Log.d("gettingall", documentSnapshot.getId() + "====> " +documentSnapshot.get("price"));
                         room.add(documentSnapshot.getId());
                         prices.add(documentSnapshot.get("price").toString());
-//                        double p = documentSnapshot.getDouble("price");
-//                        Log.d("pppppppp", p + "");
-
-//                        String p = documentSnapshot.toObject(String.class);
-
-
-//                        prices.add(documentSnapshot.get("price").toString());
-
-//                        Log.d("getting all", documentSnapshot.getId() + "===>" + documentSnapshot.get("price"));
-//                        Log.d("firebasedata", room.get(0) + prices.get(0));
                     }
 
 

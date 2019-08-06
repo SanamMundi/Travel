@@ -95,18 +95,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             hlatitudesList.add(hotelData.get(a).getLat());
             hlongitudesList.add(hotelData.get(a).getLng());
             hnamesList.add(hotelData.get(a).getName());
-            Log.d("hotels-----", hotelData.get(a). getName()
-                    + hotelData.get(a).getVicinity() + hotelData.get(a).getLat()
-                    + hotelData.get(a).getLng());
+
         }
 
         for(int b = 0; b<restData.size(); b++){
             rlatitudesList.add(restData.get(b).getLat());
             rlongitudesList.add(restData.get(b).getLng());
             rnamesList.add(restData.get(b).getName());
-            Log.d("restaurants----", restData.get(b). getName()
-                    + restData.get(b).getVicinity() + restData.get(b).getLat()
-                    + restData.get(b).getLng());
         }
 
         MarkerOptions m = new MarkerOptions();

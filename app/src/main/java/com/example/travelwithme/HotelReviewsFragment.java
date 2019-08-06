@@ -58,7 +58,6 @@ public class HotelReviewsFragment extends Fragment {
         String prices = a.getString("prices");
 
 
-        Log.d("alll", hotName + suite + prices);
 
         TextView tv = (TextView)v.findViewById(R.id.hotelNames);
         tv.setText(hotName);

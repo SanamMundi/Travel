@@ -63,13 +63,6 @@ public class ReceiveData {
 
 
             return myData;
-          //destination.setRestaurants(restaurants);
-
-//           for(int i =1; i<restaurants.size();i++)
-//          {
-//                Log.d("name",destination.getRestaurants().get(i).getName()+"");
-//
-//          }
         }
         catch(Exception e)
         {

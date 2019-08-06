@@ -78,14 +78,12 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                 String name = holder.tvTitle.getText().toString();
 
-                Log.d("hello", "onClick: " + list);
                 String[] array;
                 ArrayList<String> dass = new ArrayList<>();
 
                 array = list.split("--");
 
                 for (String s : array) {
-                    Log.d("uiop", s);
                     dass.add(s);
                 }
 
@@ -115,36 +113,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
-
-                Log.d("asdfghj", name);
-
-                /*
-
-
-
-
-
-
-
-
-
-
-                    Log.d("listaala", dass.get(5));
-
-
-                 */
-
-
-//                Bundle b = new Bundle();
-//                b.putString("loc",singleItem.getData().getName());
-//                ReviewsFragment rv = new ReviewsFragment();
-//                rv.setArguments(b);
-//
-//
-//                FragmentTransaction fragmentTransaction = ((AppCompatActivity)mContext).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.container, rv);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 

@@ -182,18 +182,12 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
             hlatitudesList.add(hotelData.get(a).getLat());
             hlongitudesList.add(hotelData.get(a).getLng());
             hnamesList.add(hotelData.get(a).getName());
-            Log.d("hotels-----", hotelData.get(a). getName()
-                    + hotelData.get(a).getVicinity() + hotelData.get(a).getLat()
-                    + hotelData.get(a).getLng());
         }
 
         for(int b = 0; b<restData.size(); b++){
             rlatitudesList.add(restData.get(b).getLat());
             rlongitudesList.add(restData.get(b).getLng());
             rnamesList.add(restData.get(b).getName());
-            Log.d("restaurants----", restData.get(b). getName()
-                    + restData.get(b).getVicinity() + restData.get(b).getLat()
-                    + restData.get(b).getLng());
         }
 
 
@@ -272,12 +266,9 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(getActivity(),
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -290,21 +281,17 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
 
                 } else {
 
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                     Toast.makeText(getActivity(), "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
     @Override
     public ArrayList getResult(String jsonData) {
-        Log.d("inside", jsonData);
+
 
 
         try{
@@ -330,9 +317,7 @@ public class MapsNearMeFragment extends SupportMapFragment implements GetNearby.
                 icon = itemData.getString("icon");
                 address = itemData.getString("vicinity");
                 locationList.add(new LocationData(lat, title, category, address, icon));
-                //locationList.add(new Location(lat+ "," + lng,title,category));
-                //locationList.
-                Log.d("afdasfasdfasdfasdfasdf", lat +",,,,"+ lng + title + category + address + icon);
+
             }
 
 

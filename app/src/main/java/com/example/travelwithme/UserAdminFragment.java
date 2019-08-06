@@ -68,7 +68,6 @@ public class UserAdminFragment extends Fragment {
                                 hm.put("role", document.get("role").toString());
                                 aList.add(hm);
 
-                                Log.d("Data",document.getId() + " => " + document.getData());
                             }
 
                             String[] from = {"user","role"};
