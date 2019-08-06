@@ -46,7 +46,8 @@ public class AdminActivity extends AppCompatActivity {
                         loadFragment(frag);
                        break;
                     case R.id.reviews:
-                        Toast.makeText(AdminActivity.this, "Settings",Toast.LENGTH_SHORT).show();break;
+                        UserReviewFragment frag1 = new UserReviewFragment();
+                        loadFragment(frag1);break;
                     case R.id.application:
                         Intent intent = new Intent(AdminActivity.this,MainTravelActivity.class);
                         startActivity(intent);

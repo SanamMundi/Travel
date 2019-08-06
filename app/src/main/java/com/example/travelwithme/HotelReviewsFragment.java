@@ -64,7 +64,12 @@ public class HotelReviewsFragment extends Fragment {
         tv.setText(hotName);
 
         TextView suites = (TextView)v.findViewById(R.id.suiteValueTextView);
-        suites.setText(suite);
+        if(suite.equals("suite")){
+            suites.setText("3 bed " + suite);
+        }else{
+            suites.setText(suite);
+        }
+
 
         TextView pri = (TextView)v.findViewById(R.id.priceValueTextView);
         pri.setText(prices);
