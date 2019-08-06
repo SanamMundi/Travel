@@ -24,4 +24,7 @@
     <string name="add">Add</string>
     <string name="reserve">Reserve</string>
     <string name="book">Book a Room</string>
+    <string name="addAReview">Add a Review</string>
+    <string name="suite">Suite:</string>
+    <string name="price">Price:</string>
 </resources>

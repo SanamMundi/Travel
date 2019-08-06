@@ -41,9 +41,11 @@ public class ReservationFragment extends Fragment {
     FirebaseAuth mAuth;
     TextView tv;
     FirebaseFirestore db;
-    ArrayList<String> hotel= new ArrayList<>();
+    ArrayList<String> hotel;
+    ArrayList<String> suites;
+    ArrayList<String> pricesofrooms;
 
-//    private static FirebaseConnection connection = new FirebaseConnection();
+    //    private static FirebaseConnection connection = new FirebaseConnection();
 //    private static CollectionReference inventories =
 //            connection.getCollectionReference(CarInventory.CAR_INVENTORY_COLLECTION);
     public ReservationFragment() {
@@ -59,26 +61,32 @@ public class ReservationFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_reservation, container, false);
 
 
+        hotel = new ArrayList<>();
+        suites = new ArrayList<>();
+        pricesofrooms = new ArrayList<>();
+
 
         mAuth = FirebaseAuth.getInstance();
-        db =  FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-        final HashMap<String, String> hm = new HashMap<String, String>();
+
 //        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
 //                .setTimestampsInSnapshotsEnabled(true)
 //                .build();
 //        db.setFirestoreSettings(settings);
         // Inflate the layout for this fragment
-        FirebaseAuth auth =  FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
         db.collection("Users").document(user.getUid()).collection("Reservations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete( Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(DocumentSnapshot d: task.getResult()){
+            public void onComplete(Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot d : task.getResult()) {
                         Log.d("all data", d.getId() + "456789" + d.getData());
                         hotel.add(d.getId());
+                        suites.add(d.get("suite").toString());
+                        pricesofrooms.add(d.get("price").toString());
                     }
 
                     String uDetails = user.getEmail();
@@ -86,10 +94,11 @@ public class ReservationFragment extends Fragment {
 
                     Log.d("llllllllllllll", hotel.size() + "");
 
-                    for(int i =0;i<hotel.size();i++) {
+                    for (int i = 0; i < hotel.size(); i++) {
+                        final HashMap<String, String> hm = new HashMap<String, String>();
                         hm.put("hotel", hotel.get(i));
                         aList.add(hm);
-                        Log.d("hotelllll",hotel.get(i)+"");
+                        Log.d("hotelllll", hotel.get(i) + "");
                     }
 
                     String[] from = {"hotel"};
@@ -103,8 +112,27 @@ public class ReservationFragment extends Fragment {
                     androidListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            HotelReviewsFragment hr = new HotelReviewsFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("hotelName", hotel.get(position));
+                            bundle.putString("suites", suites.get(position));
+                            bundle.putString("prices", pricesofrooms.get(position));
+                            hr.setArguments(bundle);
+
+
+                            Toast.makeText(getContext(), hotel.get(position) + "dsf" + suites.get(position) + pricesofrooms.get(position), Toast.LENGTH_SHORT).show();
+                            /*
+                             Bundle args = new Bundle();
+                args.putDouble("lat", Double.parseDouble(myCity.getLat()));
+                args.putDouble("lng", Double.parseDouble(myCity.getLng()));
+                args.putString("name", city);
+                mf.setArguments(args);
+                             */
+
+
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container,new HotelReviewsFragment());
+                            transaction.replace(R.id.container, hr);
                             transaction.addToBackStack(null);
                             transaction.commit();
 
@@ -112,38 +140,30 @@ public class ReservationFragment extends Fragment {
                     });
 
 
-
                     db.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for(QueryDocumentSnapshot d: task.getResult()){
-                                    Log.d("something", d.getId() + d.getData() );
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot d : task.getResult()) {
+                                    Log.d("something", d.getId() + d.getData());
                                 }
-                            }else{
+                            } else {
                                 Log.d("da", "data not read");
                             }
                         }
                     });
 
 
-
-                    for(int i =0; i<hotel.size(); i++){
+                    for (int i = 0; i < hotel.size(); i++) {
                         Log.d("hotellist", hotel.get(i));
                     }
-                }else{
+                } else {
                     Log.d("error", "data not read");
                 }
             }
         });
 
 //        readReservations(user.getUid());
-
-
-
-
-
-
 
 
         return v;
@@ -174,9 +194,7 @@ public class ReservationFragment extends Fragment {
      */
 
 
-    public void readReservations(String id){
-
-
+    public void readReservations(String id) {
 
 
     }
