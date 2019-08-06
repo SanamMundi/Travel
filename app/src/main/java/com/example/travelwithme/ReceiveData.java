@@ -75,7 +75,6 @@ public class ReceiveData {
     public City cityData(String data)
     {
 
-        Log.d("1234567890", "hello");
         try {
             City city = new City();
 
@@ -88,7 +87,7 @@ public class ReceiveData {
             city.setLng(loc.getString("lng"));
 
 
-            Log.d("1234567", loc.getString("lat"));
+
             return city;
 
 

@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements HomeAdapterListener {
 
 
     public ArrayList<String> cities;
-    public String[] temp = {"London", "Vancouver", "New Delhi", "Amsterdam", "Venice", "Los Angeles", "New York", "Paris", "Bali", "Dubai"};
+    public String[] temp = {"London", "Vancouver", "New Delhi", "Amsterdam", "Venice", "Los Angeles", "New York", "Paris", "Toronto", "Dubai"};
 
 
     private RecyclerView recyclerView;
