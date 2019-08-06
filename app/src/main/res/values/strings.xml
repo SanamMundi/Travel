@@ -13,6 +13,10 @@
     <string name="reviewButton">Submit</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
+    <string name="txtUserEmail">User Email:</string>
+    <string name="txtUserRole">User Role</string>
+    <string name="btnDel">Delete</string>
+    <string name="deleting">Enter user id to delete user</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

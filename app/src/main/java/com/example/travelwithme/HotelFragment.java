@@ -74,6 +74,7 @@ public class HotelFragment extends Fragment {
 
 
 
+
         Random rand = new Random();
         int n = rand.nextInt(5);
         String[] hotels = {"first", "second", "third", "fourth", "fifth", "sixth"};

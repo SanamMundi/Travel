@@ -3,6 +3,8 @@ package com.example.travelwithme;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +41,10 @@ public class AdminActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.account:
-                        Toast.makeText(AdminActivity.this, "My Account",Toast.LENGTH_SHORT).show();break;
+                        UserAdminFragment frag = new UserAdminFragment();
+
+                        loadFragment(frag);
+                       break;
                     case R.id.reviews:
                         Toast.makeText(AdminActivity.this, "Settings",Toast.LENGTH_SHORT).show();break;
                     case R.id.application:
@@ -60,13 +65,26 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed()
+    public void loadFragment(Fragment fragment)
     {
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.adminContainer,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void logout()
