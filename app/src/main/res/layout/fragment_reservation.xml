@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationFragment"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    tools:context=".ReservationFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/Reservations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:text="My Reservations"
+        android:fontFamily="@font/pacifico"
+
         android:gravity="center_horizontal"
-        android:id="@+id/usersName"
-        android:padding="10dp"/>
-    <TextView
+
+        android:textSize="28sp" />
+
+    <ListView
+        android:id="@+id/reservationList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:gravity="center_horizontal"
-        android:id="@+id/reservations"
-        android:padding="10dp"/>
+        android:layout_marginTop="20dp"
+   />
 
 </LinearLayout>

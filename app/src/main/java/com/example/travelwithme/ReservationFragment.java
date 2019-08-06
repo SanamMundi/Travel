@@ -3,11 +3,16 @@ package com.example.travelwithme;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import androidx.annotation.NonNull;
 
@@ -17,12 +22,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -34,6 +41,7 @@ public class ReservationFragment extends Fragment {
     FirebaseAuth mAuth;
     TextView tv;
     FirebaseFirestore db;
+    ArrayList<String> hotel= new ArrayList<>();
 
 //    private static FirebaseConnection connection = new FirebaseConnection();
 //    private static CollectionReference inventories =
@@ -48,10 +56,14 @@ public class ReservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_reservation, container, false);
+        final View v = inflater.inflate(R.layout.fragment_reservation, container, false);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         db =  FirebaseFirestore.getInstance();
+        final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+        final HashMap<String, String> hm = new HashMap<String, String>();
 //        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
 //                .setTimestampsInSnapshotsEnabled(true)
 //                .build();
@@ -59,28 +71,78 @@ public class ReservationFragment extends Fragment {
         // Inflate the layout for this fragment
         FirebaseAuth auth =  FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        String uDetails = user.getEmail();
-        tv = (TextView)v.findViewById(R.id.usersName);
-        tv.setText(uDetails);
 
-
-
-        db.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Users").document(user.getUid()).collection("Reservations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(Task<QuerySnapshot> task) {
+            public void onComplete( Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot d: task.getResult()){
-                        Log.d("something", d.getId() + d.getData() );
+                    for(DocumentSnapshot d: task.getResult()){
+                        Log.d("all data", d.getId() + "456789" + d.getData());
+                        hotel.add(d.getId());
+                    }
+
+                    String uDetails = user.getEmail();
+
+
+                    Log.d("llllllllllllll", hotel.size() + "");
+
+                    for(int i =0;i<hotel.size();i++) {
+                        hm.put("hotel", hotel.get(i));
+                        aList.add(hm);
+                        Log.d("hotelllll",hotel.get(i)+"");
+                    }
+
+                    String[] from = {"hotel"};
+                    int[] to = {R.id.txtHotel};
+
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), aList, R.layout.reservation_list, from, to);
+                    ListView androidListView = (ListView) v.findViewById(R.id.reservationList);
+                    androidListView.setAdapter(simpleAdapter);
+
+
+                    androidListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.container,new HotelReviewsFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                        }
+                    });
+
+
+
+                    db.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot d: task.getResult()){
+                                    Log.d("something", d.getId() + d.getData() );
+                                }
+                            }else{
+                                Log.d("da", "data not read");
+                            }
+                        }
+                    });
+
+
+
+                    for(int i =0; i<hotel.size(); i++){
+                        Log.d("hotellist", hotel.get(i));
                     }
                 }else{
-                    Log.d("da", "data not read");
+                    Log.d("error", "data not read");
                 }
             }
         });
 
+//        readReservations(user.getUid());
 
 
-        readReservations(user.getUid());
+
+
+
 
 
 
@@ -114,18 +176,9 @@ public class ReservationFragment extends Fragment {
 
     public void readReservations(String id){
 
-        db.collection("Users").document(id).collection("Reservations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete( Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(DocumentSnapshot d: task.getResult()){
-                        Log.d("all data", d.getId() + "456789" + d.getData());
-                    }
-                }else{
-                    Log.d("error", "data not read");
-                }
-            }
-        });
+
+
+
     }
 
 
