@@ -1,0 +1,10 @@
+#Mon May 04 19:16:03 PDT 2020
+path.2=classes3.dex
+path.1=classes2.dex
+path.0=classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+base.2=/home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/dex/debug/mergeDexDebug/out
+base.1=/home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/dex/debug/mergeDexDebug/out
+base.0=/home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/dex/debug/mergeDexDebug/out

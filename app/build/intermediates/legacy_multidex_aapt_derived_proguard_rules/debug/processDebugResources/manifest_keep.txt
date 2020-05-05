@@ -1,0 +1,4 @@
+# Referenced at /home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml:24
+-keep class com.example.travelwithme.App { <init>(); }
+# Referenced at /home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml:24
+-keep class com.example.travelwithme.whateverString { <init>(); }

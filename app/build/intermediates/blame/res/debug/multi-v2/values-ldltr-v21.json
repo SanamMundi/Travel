@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/sanamdeep/Desktop/Google_API/TravelWithMe/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "map": [
+                {
+                    "source": "/home/sanamdeep/.gradle/caches/transforms-2/files-2.1/4dec552454a9048850b6c3e1c4f7978a/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
+                    }
+                }
+            ]
+        }
+    ]
+}
